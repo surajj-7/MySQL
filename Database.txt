@@ -1,0 +1,210 @@
+Database:
+Types->
+1. Relational: In table formats. 
+   eg: MySQL, postgre-sql, oracle
+2. Non-relational: Without table formats. 
+   eg: mongodb
+
+SQL: Structured Query Language
+programming language used to interact with relational databases.
+
+Used to perform CRUD operations:
+Create
+Read 
+Update 
+Delete
+
+Commands:
+create database db_name;
+OR
+create database if not exists db_name;
+
+drop database db_name;
+OR
+drop database if exists db_name;
+
+use db_name(for using created database)
+
+create table tb_name(
+id int primary key,
+name varchar(20),
+age int not null);
+insert into student values(1,"Suraj",23);
+
+select * from student;
+
+char->stores characters of fixed length
+varchar->stores character of given length
+BLOB(binary large object)->for storing files data
+int
+tinyint signed(-128 to 127) tinyint unsigned(0 to 255)
+bigint
+bit
+float
+double
+Boolean
+date
+year(year in 4 digits)
+
+Types of SQL commands:
+DDL: Data Definition Language(create,alter,rename,truncate and drop)
+DQL: Data Query Language(select)
+DML: Data Manipulation Language(insert,update,delete)
+DCL: Data Control Language(grant and revoke permissions to users)
+TCL: Transaction Control Langauge(start tranx,commit,rollback)
+
+Schema: Nothing, but the design format
+
+show databases;
+show tables;
+
+KEYS:
+Primary key:It is a column(or set of columns) in a table that uniquely identifies each row.
+Only one column should be pk and not null.
+
+Foreign key:It is a column(or set of columns)in a table that refers to the primary key of another table which acts as foreign key in first table
+FK's can have duplicate and null values and can be multiple.
+
+Constraints:
+not null: column cannot have a null
+unique: all values in column are different
+primary key: makes a column unique and not null but used only for once
+default: sets the default value of a column
+
+check: it can limit the values allowed in a column 
+eg: Constraint age_check check (age>=18);
+    OR
+    age int check(age>=18)
+
+distinct: not duplicated values
+
+WHERE Clause:
+Arithmetic Operators: + , - , * , / , %
+Comparison Operators: = , != , > , >= , < , <=
+Logical Operator: AND, OR, NOT, IN, BETWEEN, ALL, LIKE, ANY
+Bitwise Operators: &(Bitwise AND), |(Bitwise OR)
+
+limit->sets an upper limit on number of (tuples) rows to be returned
+eg: select * from student limit 3;
+
+Sorting:
+select * from student order by city desc; //descending
+select * from student order by city asc; //ascending
+
+AGGREGATE FUNCTIONS
+count()
+max()
+min()
+sum()
+avg() 
+
+Group By Clause:
+Collects data from multiple records and group the result by one or more column
+Generally, we use group by with aggregate function
+
+Having Clause
+Similar to where i.e applies some condition on rows.
+Used when we want to apply any condition after grouping
+
+eg:
+select city,count(name)
+from student
+group by city
+having max(marks)>90;
+
+where--->rows
+having--->group by
+
+
+TABLE RELATED QUERIES:
+
+update->to update existing rows
+eg:
+update student
+set grade="A"
+where grade="B";
+
+delete->to delete from existing rows
+eg:
+delete from student
+where marks < 55;
+
+database---reverse engineer
+
+CASCADING FOREIGN KEY:
+on delete cascade(on delete set null)
+on update cascade
+
+alter->to change the schema(design)
+
+add column
+alter table table_name
+add column column_name datatype constraint;
+
+drop column
+alter table table_name
+drop column column_name;
+
+rename table
+alter table table_name
+rename to new_table_name;
+
+change column(rename)
+alter table table_name
+change old_name new_name new_datatype new_constraint;
+
+modify column(modifies only datatype/constraint)
+alter table table_name
+modify old_col_name new_datatype new_constraint;
+
+truncate->to delete table's data
+truncate table table_name;
+
+
+
+
+Joins in SQL
+Join is used to combine rows from two or more tables, based on a related column between them.
+
+Types of joins:
+1. Inner join ->  returns record having matching values in both sides
+
+2. Left join -> returns all records from the left table, and matched records from the right table
+
+3. Right join -> returns all records from the right table, and matched records from the left table
+
+4. Full join -> returns all records when there is a match either in left or right table
+
+left/right exclusive join:
+overlapping->not null
+non-over lapping-> null
+
+left-exclusive join->right.id
+right-exclusive join->left.id
+
+Self join:
+Its a regular join but the table is joined with itself.
+eg:
+select e.name as manager_name,b.name
+from employee e
+join employee b
+on e.id=b.manager_id;
+
+Union:
+It is used to combine the results-set of two or more SELECT statements.
+Gives unique records.
+
+To use it:
+1. every SELECT should have same no. of columns
+2. columns must have similar data types
+3. columns in every SELECT should be in same order.
+
+Views:
+A view is a virtual table based on the result-set of an SQL statement.
+
+eg:
+create view view1 as 
+select rollno,name from student;
+
+select * from view1;
+drop view view1;
